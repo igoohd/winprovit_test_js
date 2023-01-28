@@ -1,5 +1,5 @@
 import fetch from "node-fetch";
-import { getRelatedPosts } from "./posts.js";
+import { getFormattedPost } from "./posts.js";
 
 async function getUsers() {
   const usersAPI = "https://jsonplaceholder.typicode.com/users";
@@ -15,18 +15,19 @@ async function getUsers() {
   }
 }
 
-function getFormattedUsers(user, posts) {
+function getFormattedUser(user, posts) {
   user.address = `${user.address.street}, ${user.address.suite} - ${user.address.zipcode} ${user.address.city}`;
   user.company = user.company.name;
 
-  const relatedPosts = posts.filter((post) => getRelatedPosts(user.id, post));
+  const relatedPosts = posts.filter((post) => user.id == post.userId);
+  const relatedFormattedPosts = relatedPosts.map((relatedPost) => getFormattedPost(relatedPost))
 
   const formattedUsersAndPosts = {
     ...user,
-    posts: relatedPosts,
+    posts: relatedFormattedPosts,
   };
 
   return formattedUsersAndPosts;
 }
 
-export { getUsers, getFormattedUsers };
+export { getUsers, getFormattedUser };

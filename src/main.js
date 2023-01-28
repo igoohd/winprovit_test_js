@@ -1,4 +1,4 @@
-import { getUsers, getFormattedUsers } from "./functions/users.js";
+import { getUsers, getFormattedUser } from "./functions/users.js";
 import { getPosts } from "./functions/posts.js";
 
 const Letter = {
@@ -8,11 +8,17 @@ const Letter = {
 
     if (!users || !posts) return null;
 
-    const result = users.map((user) => getFormattedUsers(user, posts));
+    const result = users.map((user) => getFormattedUser(user, posts));
 
     return result;
   },
 };
 
-const finalResult = await Letter.get();
-console.log(finalResult);
+async function run() {
+  const finalResult = await Letter.get();
+  console.log(finalResult);
+}
+
+run()
+
+export { Letter }

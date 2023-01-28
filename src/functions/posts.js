@@ -14,9 +14,7 @@ async function getPosts() {
   }
 }
 
-function getRelatedPosts(userId, post) {
-  if (post.userId != userId) return;
-
+function getFormattedPost(post) {
   return {
     id: post.id,
     title: post.title,
@@ -24,4 +22,4 @@ function getRelatedPosts(userId, post) {
   };
 }
 
-export { getPosts, getRelatedPosts };
+export { getPosts, getFormattedPost };
